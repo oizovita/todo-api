@@ -1,0 +1,33 @@
+{
+  "item_index": {
+    "path": "/api/v2/items",
+    "method": "GET",
+    "controller": "ItemController",
+    "action": "index"
+  },
+  "item_show": {
+    "path": "/api/v2/items/([0-9]*)",
+    "method": "GET",
+    "controller": "ItemController",
+    "action": "show"
+  },
+  "item_create": {
+    "path": "/api/v2/items",
+    "method": "POST",
+    "controller": "ItemController",
+    "action": "create"
+  },
+  "item_update": {
+    "path": "/api/v2/items/([0-9]*)",
+    "method": "PUT",
+    "controller": "ItemController",
+    "action": "update"
+  },
+  "item_destroy": {
+    "path": "/api/v2/items/([0-9]*)",
+    "method": "DELETE",
+    "controller": "ItemController",
+    "action": "delete"
+  }
+}
+
