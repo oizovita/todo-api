@@ -12,5 +12,8 @@
             "Core\\": "core/",
             "Src\\": "src/"
         }
+    },
+    "require-dev": {
+        "laravel/homestead": "^11.4"
     }
 }

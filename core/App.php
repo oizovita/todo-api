@@ -3,8 +3,6 @@
 namespace Core;
 
 use Exception;
-use Src\Controllers\ItemController;
-use Src\Models\Item;
 
 /**
  * Class App

@@ -90,6 +90,7 @@ final class DB
             $stmt->execute($args);
             return $stmt;
         } catch (PDOException $e) {
+            header("HTTP/1.0 500 Server Internal Error");
             throw new Exception($e->getMessage());
         }
     }
