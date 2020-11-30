@@ -11,13 +11,21 @@ final class App
 {
     private static $instance;
 
-    public $db;
+    /**
+     * @var DB
+     */
+    public DB $db;
 
+    /**
+     * App constructor.
+     */
     private function __construct()
     {
     }
 
     /**
+     * Create singleton object
+     *
      * @return mixed
      */
     public static function getInstance()
@@ -30,6 +38,8 @@ final class App
     }
 
     /**
+     * Method for star server
+     *
      * @param  array  $config
      * @param  Router  $router
      * @return mixed
@@ -58,9 +68,5 @@ final class App
         } catch (Exception $exception) {
             echo json_encode(['Error' => $exception->getMessage()]);
         }
-    }
-
-    private function __clone()
-    {
     }
 }

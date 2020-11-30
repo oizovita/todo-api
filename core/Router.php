@@ -14,12 +14,18 @@ class Router
      */
     private $routes;
 
+    /**
+     * Router constructor.
+     * @param $file
+     */
     public function __construct($file)
     {
         $this->routes = json_decode($file, true);
     }
 
     /**
+     * Map request with route
+     *
      * @return array
      * @throws Exception
      */

@@ -17,6 +17,7 @@ final class DB
      * @var null
      */
     protected static $instance = null;
+
     /**
      * @var PDO
      */
@@ -31,6 +32,8 @@ final class DB
     }
 
     /**
+     * Connection to database
+     *
      * @param $driver
      * @param $port
      * @param $host
@@ -63,6 +66,8 @@ final class DB
     }
 
     /**
+     * Set sql
+     *
      * @param $query
      * @param  array  $args
      * @return mixed
@@ -74,6 +79,8 @@ final class DB
     }
 
     /**
+     * Run sql query
+     *
      * @param $query
      * @param  array  $args
      * @return PDOStatement

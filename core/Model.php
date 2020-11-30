@@ -11,15 +11,27 @@ use Exception;
  */
 class Model
 {
+    /**
+     * @var string
+     */
     protected string $table;
+
+    /**
+     * @var DB
+     */
     private DB $db;
 
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         $this->db = App::getInstance()->db;
     }
 
     /**
+     * Delete entry by id
+     *
      * @param $id
      * @return mixed
      * @throws Exception
@@ -40,6 +52,8 @@ class Model
     }
 
     /**
+     * Create new entry
+     *
      * @param $fields
      * @return mixed
      * @throws Exception
@@ -58,6 +72,8 @@ class Model
     }
 
     /**
+     * Update entry by id
+     *
      * @param $id
      * @param $fields
      * @return mixed
@@ -76,6 +92,8 @@ class Model
     }
 
     /**
+     * Get all entries
+     *
      * @return array
      * @throws Exception
      */
@@ -85,6 +103,8 @@ class Model
     }
 
     /**
+     * Get one entry by id
+     *
      * @param $id
      * @return array
      * @throws Exception
