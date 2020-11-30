@@ -3,20 +3,19 @@
 namespace Core;
 
 use Exception;
+use Src\Controllers\ItemController;
+use Src\Models\Item;
 
 /**
  * Class App
  */
-class App
+final class App
 {
     private static $instance;
 
+    public $db;
+
     private function __construct()
-    {
-    }
-
-
-    private function __clone()
     {
     }
 
@@ -41,6 +40,15 @@ class App
     public function handle(array $config, Router $router)
     {
         try {
+            $this->db = DB::connection(
+                $config['driver'],
+                $config['port'],
+                $config['host'],
+                $config['database'],
+                $config['username'],
+                $config['password']
+            );
+
             $result = $router->mapRequest();
             $controller = "Src\\Controllers\\$result[controller]";
             $action = $result['action'];
@@ -52,5 +60,9 @@ class App
         } catch (Exception $exception) {
             echo json_encode(['Error' => $exception->getMessage()]);
         }
+    }
+
+    private function __clone()
+    {
     }
 }
