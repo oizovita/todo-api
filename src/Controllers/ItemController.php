@@ -31,7 +31,7 @@ class ItemController
      */
     public function index()
     {
-        return json_encode($this->item->get());
+        return json_encode(['data' => $this->item->get()]);
     }
 
     /**
@@ -43,7 +43,7 @@ class ItemController
      */
     public function show($id)
     {
-       return json_encode($this->item->where($id));
+        return json_encode($this->item->where(['id' => $id]));
     }
 
     /**
@@ -54,7 +54,7 @@ class ItemController
      */
     public function create()
     {
-       return json_encode($this->item->create($_POST));
+        return json_encode($this->item->create(json_decode(file_get_contents('php://input'), true)));
     }
 
     /**
@@ -66,9 +66,7 @@ class ItemController
      */
     public function update($id)
     {
-        parse_str(file_get_contents("php://input"),$post_vars);
-
-       return json_encode($this->item->update($id, $post_vars));
+        return json_encode($this->item->update($id, json_decode(file_get_contents('php://input'), true)));
     }
 
     /**

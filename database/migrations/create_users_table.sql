@@ -1,0 +1,6 @@
+CREATE TABLE users(
+    id   TINYINT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    login VARCHAR(255),
+    pass VARCHAR(255)
+);

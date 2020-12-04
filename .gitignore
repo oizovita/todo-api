@@ -3,3 +3,4 @@ Homestead.yaml
 Vagrantfile
 .vagrant
 config.php
+.idea

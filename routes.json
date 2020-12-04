@@ -28,6 +28,24 @@
     "method": "DELETE",
     "controller": "ItemController",
     "action": "delete"
+  },
+  "register": {
+    "path": "/api/v2/register",
+    "method": "POST",
+    "controller": "AuthController",
+    "action": "register"
+  },
+  "login": {
+    "path": "/api/v2/login",
+    "method": "POST",
+    "controller": "AuthController",
+    "action": "login"
+  },
+  "logout": {
+    "path": "/api/v2/logout",
+    "method": "POST",
+    "controller": "AuthController",
+    "action": "logout"
   }
 }
 

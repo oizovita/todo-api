@@ -6,7 +6,9 @@
             "email": "oizovita@yahoo.com"
         }
     ],
-    "require": {},
+    "require": {
+      "ext-json": "*"
+    },
     "autoload": {
         "psr-4": {
             "Core\\": "core/",
