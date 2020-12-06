@@ -38,7 +38,7 @@ class Model
      */
     public function delete($id)
     {
-        return $this->db->sql("DELETE FROM {$this->getTable()} WHERE id = ?", [$id]);
+        $this->db->delete($this->getTable())->where('id', $id)->exec();
     }
 
     /**
@@ -60,15 +60,8 @@ class Model
      */
     public function create(array $fields)
     {
-        $keys = array_keys($fields);
-        $namedPlaceholder = implode(", ", array_map(function ($value) {
-            return ":$value";
-        }, $keys));
-
-        $keys = implode(", ", $keys);
-        $this->db->sql("INSERT INTO {$this->getTable()} ($keys) VALUES ($namedPlaceholder)", $fields);
-        $id = $this->db->getConnection()->lastInsertId();
-        return $this->where(['id' => $id]);
+        $this->db->insert($this->getTable(), $fields)->exec();
+        return $this->db->select($this->getTable(), ['*'])->where('id', $this->db->lastId())->get();
     }
 
     /**
@@ -80,9 +73,12 @@ class Model
      */
     public function where(array $fields)
     {
-        $column = array_keys($fields)[0];
-        $value = array_values($fields)[0];
-        return $this->db->sql("SELECT * FROM {$this->getTable()} WHERE {$column} = ? ", [$value])->fetch();
+        $baseSql = $this->db->select($this->getTable(), ['*']);
+        foreach ($fields as $field => $value) {
+            $baseSql->where($field, $value);
+        }
+
+        return $baseSql->get();
     }
 
     /**
@@ -95,14 +91,8 @@ class Model
      */
     public function update($id, array $fields)
     {
-        $keys = implode(", ", array_map(function ($key) {
-            return "$key = ?";
-        }, array_keys($fields)));
-
-        $this->db->sql("UPDATE {$this->getTable()} SET $keys  WHERE id = ?",
-            array_merge(array_values($fields), [$id]));
-
-        return $this->where(['id' => $id]);
+        $this->db->update($this->getTable(), $fields)->where('id', $id)->exec();
+        return $this->db->select($this->getTable(), ['*'])->where('id', $id)->get();
     }
 
     /**
@@ -113,6 +103,6 @@ class Model
      */
     public function get()
     {
-        return $this->db->sql("SELECT * FROM {$this->getTable()}")->fetchAll();
+        return $this->db->select($this->getTable(), ['*'])->get();
     }
 }
