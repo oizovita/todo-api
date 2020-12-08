@@ -32,21 +32,42 @@ class AuthController
         $data = json_decode(file_get_contents('php://input'), true);
         if (!empty($this->user->where(['login' => $data['login']]))) {
             http_response_code(422);
-            return json_encode(['Error' => 'Login must be unique']);
+            return json_encode(['Error' => 'Login must be unique', 'status' => 422]);
         }
-        $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
-        $response = $this->user->create($data);
-        unset($response['pass']);
-        return json_encode($response);
+        $data['pass'] = md5($data['pass']);
+        $this->user->create($data);
+
+        return json_encode(['status' => 201]);
     }
 
+    /**
+     * @return false|string
+     * @throws Exception
+     */
     public function login()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        if (!empty($this->user->where(['login' => $data['login']]))) {
+        $user = $this->user->where(['login' => $data['login'], 'pass' => md5($data['pass'])]);
+        if (empty($user)) {
             http_response_code(422);
-            return json_encode(['Error' => 'Login must be unique']);
+            return json_encode(['Error' => 'Login not found', 'status' => 422]);
         }
 
+        session_start();
+
+        return json_encode(['status' => 200]);
+    }
+
+    /**
+     *
+     */
+    public function logout()
+    {
+        session_start();
+        setcookie("PHPSESSID", "", time(), "/", "." . '192.168.20.20');
+        session_destroy();
+        unset($_COOKIE["PHPSESSID"]);
+
+        return json_encode(['status' => 200]);
     }
 }
